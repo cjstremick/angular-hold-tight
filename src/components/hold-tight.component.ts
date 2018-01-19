@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
@@ -8,7 +8,6 @@ import 'rxjs/add/operator/zip';
 import { InjectionToken } from '@angular/core';
 
 export const HT_MESSAGES = new InjectionToken<string[]>('hold-tight-messages');
-export const HT_DELAY = new InjectionToken<string[]>('hold-tight-delay');
 
 export const DEFAULT_MESSAGES = [
     'Working on it...',
@@ -18,22 +17,27 @@ export const DEFAULT_MESSAGES = [
     'Calculating...'
 ];
 
-export const DEFAULT_DELAY = 2000;
-
 @Component({
     selector: 'app-hold-tight',
     template: `<div class="ht-container"><p class="ht-message">{{ message }}</p></div>`
 })
 export class HoldTightComponent implements OnInit {
-    message = 'Please wait...';
-    constructor( @Inject(HT_MESSAGES) private messages: string[], @Inject(HT_DELAY) private delay: number) { }
+    message: string;
+    @Input() initialMessage: string = 'Please wait...';
+    @Input() finalMessage: string = 'This is taking a really long time...';
+    @Input() delay = 2500;
+
+    constructor( @Inject(HT_MESSAGES) private messages: string[]) { }
 
     ngOnInit() {
         this.shuffleArray(this.messages);
-        this.messages.push('Please wait...');
+        this.messages.push(this.initialMessage);
         Observable.from(this.messages).zip(
             Observable.interval(this.delay), function (a, b) { return a; })
-            .subscribe(message => this.message = message);
+            .subscribe(
+            message => this.message = message,
+            error => console.log(error),
+            () => this.message = this.finalMessage);
     }
 
     private shuffleArray = (array: any[]) => {
