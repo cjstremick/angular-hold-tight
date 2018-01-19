@@ -6,8 +6,22 @@ From your Angular 5 project
 `npm i angular-hold-tight`
 
 ## Use
-Import HoldTightModule into one of your Angular modules and you can add the component where you like:
-`<app-hold-tight></app-hold-tight>`
+Import the HoldTightModule into one of your Angular modules
+
+    import {HoldTightModule} from 'angular-hold-tight';
+
+    @NgModule({
+       ...
+       imports: [
+           ...
+           HoldTightModule,
+           ...
+       ],
+       ...
+
+Now you can use the component where you like:
+
+    <app-hold-tight></app-hold-tight>
 
 ## Optional configuration
 Pass a 'delay' property to the control to change the default delay of 2500 millisends.
