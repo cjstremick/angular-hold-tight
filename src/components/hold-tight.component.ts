@@ -18,7 +18,7 @@ export const DEFAULT_MESSAGES = [
 ];
 
 @Component({
-    selector: 'app-hold-tight',
+    selector: 'hold-tight',
     template: `<div class="ht-container"><p class="ht-message">{{ message }}</p></div>`
 })
 export class HoldTightComponent implements OnInit {
