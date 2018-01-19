@@ -25,7 +25,8 @@ Now you can use the component where you like:
 
 ## Optional configuration
 Pass a 'delay' property to the control to change the default delay of 2500 millisends.
-`<app-hold-tight [delay]="1000"></app-hold-tight>`
+
+    <app-hold-tight [delay]="1000"></app-hold-tight>
 
 The component has a few default messages.  You can supply a new list of messages to the component like this:
 
